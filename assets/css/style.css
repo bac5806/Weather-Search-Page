@@ -21,10 +21,18 @@ header h1 {
 }
 
 main {
-    display: block;
+    display: flex;
+    justify-content: space-between;
 }
 
-main h2 {
+.searchCont {
+    display: block;
+    padding: 10px;
+    margin-right: 10px;
+    min-width: max-content;
+}
+
+.searchCont h2 {
     padding-left: 20px;
     font-size: 22px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -32,25 +40,113 @@ main h2 {
     margin-bottom: 5px;
 }
 
-main form {
+.searchCont form {
     padding-left: 20px;
+    margin-bottom: 25px;
 }
 
-main input {
-    background-color: rgb(250, 233, 233);
+.searchCont input {
+    background-color: rgb(233, 230, 230);
+    padding: 8px;
+    border-radius: 5px;
 }
 
-main button {
+.searchCont .searchButton {
     padding: 2px;
-    font-size: 18px;
     font-family: 'Arial Narrow Bold', sans-serif;
     font-weight: bold;
     cursor: pointer;
-    background-color: rgb(164, 155, 197);
-    color: rgb(25, 43, 35);
-    margin-left: 6px;
+    background-color: rgb(46, 60, 250);
+    color: white;
+    border-radius: 5px;
 }
 
-main button:hover {
-    background-color: rgb(226, 233, 235);
+.searchCont .searchButton:hover {
+    background-color: rgb(139, 252, 135);
+}
+
+.cityNameCont {
+    margin: 15px;
+    margin-left: 10px;
+}
+
+.cityName {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    border: 1px solid grey;
+    margin: 7px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    padding: 7px;
+    background-color: rgb(151, 145, 223);
+    min-width: 150px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.searchCont .cityName:hover {
+    background-color: rgb(201, 245, 248);
+}
+
+.weatherCont {
+    display: block;
+}
+
+.todaysForecast {
+    padding: 20px;
+    border-top: .5px dashed grey;
+    border-left: .5px dashed grey;
+    border-bottom: .5px dashed grey;
+    background-color: rgb(220, 245, 250);
+}
+
+.todaysForecast h2 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    text-align: left;
+}
+
+
+.todaysForecast p {
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: left;
+}
+
+.fiveDayH2 {
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    padding: 10px;
+}
+
+.fiveDayForecast {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dayCont {
+    background-color: rgb(69, 131, 245);
+    margin:10px;
+    padding:10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.dayCont h3 {
+    line-height: 20px;
+    padding: 10px;
+}
+
+.dayCont p {
+    padding: 10px;
+}
+
+.fa-search {
+    color: white;
+    padding: 5px;
 }
