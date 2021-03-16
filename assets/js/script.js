@@ -53,7 +53,7 @@ btnEl.addEventListener("click", function(event) {
         }
         
         // concat the api call with input from user along with api key
-        var apiLink = "http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=imperial" + "&appid=" + key;
+        var apiLink = "https://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=imperial" + "&appid=" + key;
 
         // create html elements for displaying weather info
         var todaysForecastEl = document.createElement("div");
@@ -174,7 +174,7 @@ for (var i = 0; i < getButtons.length; ++i) {
         var getCity = this.innerHTML;
         
         // concat the api call with input from user along with api key
-        var apiLink = "http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=imperial" + "&appid=" + key;
+        var apiLink = "https://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&units=imperial" + "&appid=" + key;
 
         // create html elemetns 
         var todaysForecastEl = document.createElement("div");
