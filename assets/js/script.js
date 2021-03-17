@@ -43,6 +43,7 @@ btnEl.addEventListener("click", function(event) {
             var cityBtnEl = document.createElement("button");
             cityBtnEl.className = "cityName";
             cityBtnEl.textContent = getCity;
+
             // append button to cityNameContiner
             cityNameContEl.append(cityBtnEl);
 
@@ -50,6 +51,7 @@ btnEl.addEventListener("click", function(event) {
             cityNameArr.push(getCity);
             // store in local
             localStorage.setItem("cityNames", JSON.stringify(cityNameArr));
+            cityButtons();
         }
         
         // concat the api call with input from user along with api key
@@ -64,6 +66,7 @@ btnEl.addEventListener("click", function(event) {
         var humidityEl = document.createElement("p");
         var windSpeedEl = document.createElement("p");
         var uvEl = document.createElement("p");
+        var uvValEl = document.createElement("span");
 
         // empty string used for displaying UV
         var getUv = "";
@@ -75,10 +78,11 @@ btnEl.addEventListener("click", function(event) {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-            
-                // set content of html elements 
+                // set content of html elements and img element for weather icon
+                var weatherImg = document.createElement("img");
                 cityName.textContent = (data.name + " " + "(" + getDate + ")");
+                weatherImg.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+                cityName.append(weatherImg);
                 tempEl.innerHTML = "Temperature: " + data.main.temp + " " + "&#x2109";
                 humidityEl.innerHTML = "Humidity: " + data.main.humidity + "\%";
                 windSpeedEl.innerHTML = "Wind Speed: " + data.wind.speed + " MPH";
@@ -96,7 +100,17 @@ btnEl.addEventListener("click", function(event) {
                     })
                     .then(function (data1) {
                         // set UV info
-                        uvEl.innerHTML = "UV Index: " + data1.value;
+                        if (data1.value >= 7) {
+                            uvValEl.style.backgroundColor = "red";
+                        }
+                        else {
+                            uvValEl.style.backgroundColor = "green";
+                        }
+
+                        uvEl.textContent = "UV Index: ";
+                        // set uvVal element to uv value and append
+                        uvValEl.textContent = data1.value;
+                        uvEl.append(uvValEl);
                 });  
 
                 // creat html elements for 5 day forecast
@@ -113,7 +127,6 @@ btnEl.addEventListener("click", function(event) {
                         return response2.json();
                     })
                     .then(function (data2) {
-                        console.log(data2);
 
                         // crate div element and set className
                         var fiveDayCont = document.createElement("div");
@@ -131,7 +144,11 @@ btnEl.addEventListener("click", function(event) {
                             var dateEl = document.createElement("h3");
                             dateEl.innerHTML = moment().add(addDay, "d").format("M/DD/YYYY");
 
-                            // create p element and set its content to temp infi
+                            // create img element
+                            var weatherImg = document.createElement("img");
+                            weatherImg.src = "http://openweathermap.org/img/wn/" + data2.list[i].weather[0].icon + "@2x.png";
+
+                            // create p element and set its content to temp info
                             var fiveDayTemp = document.createElement("p");
                             fiveDayTemp.innerHTML = "Temp: " + data2.list[i].main.temp + " " + "&#x2109";
 
@@ -140,7 +157,7 @@ btnEl.addEventListener("click", function(event) {
                             fiveDayHumidity.innerHTML = "Humidity: " + data2.list[i].main.humidity + "\%";
 
                             // append created elements 
-                            dayContEl.append(dateEl, fiveDayTemp, fiveDayHumidity);
+                            dayContEl.append(dateEl, weatherImg, fiveDayTemp, fiveDayHumidity);
                             fiveDayCont.append(dayContEl);
                             // increment day variable
                             addDay += 1;
@@ -185,6 +202,7 @@ for (var i = 0; i < getButtons.length; ++i) {
         var humidityEl = document.createElement("p");
         var windSpeedEl = document.createElement("p");
         var uvEl = document.createElement("p");
+        var uvValEl = document.createElement("span");
 
         // empty string used for getting UV info
         var getUv = "";
@@ -195,11 +213,13 @@ for (var i = 0; i < getButtons.length; ++i) {
             .then(function (response) {
                 return response.json();
             })
-            .then(function (data) {
+            .then(function (data) { 
                 console.log(data);
-            
-                // set content of created html elements
-                cityName.textContent = (data.name + " " + "(" + getDate + ")");
+                // set content of created html elements and create img tag for weather icon
+                var weatherImg = document.createElement("img");
+                cityName.innerHTML = (data.name + " " + "(" + getDate + ")");
+                weatherImg.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+                cityName.append(weatherImg);
                 tempEl.innerHTML = "Temperature: " + data.main.temp + " " + "&#x2109";
                 humidityEl.innerHTML = "Humidity: " + data.main.humidity + "\%";
                 windSpeedEl.innerHTML = "Wind Speed: " + data.wind.speed + " MPH";
@@ -216,7 +236,17 @@ for (var i = 0; i < getButtons.length; ++i) {
                         return response1.json();
                     })
                     .then(function (data1) {
-                        uvEl.innerHTML = "UV Index: " + data1.value;
+                        // set UV info
+                        if (data1.value >= 7) {
+                            uvValEl.style.backgroundColor = "red";
+                        }
+                        else {
+                            uvValEl.style.backgroundColor = "green";
+                        }
+                        uvEl.textContent = "UV Index: ";
+                        // set uvVal element to uv value and append
+                        uvValEl.textContent = data1.value;
+                        uvEl.append(uvValEl);
                 });  
             
         // create html elements for displaying 5 day forecase
@@ -233,8 +263,6 @@ for (var i = 0; i < getButtons.length; ++i) {
                 return response2.json();
             })
             .then(function (data2) {
-                console.log(data2);
-
                 // crate div container element
                 var fiveDayCont = document.createElement("div");
                 fiveDayCont.className = "fiveDayForecast";
@@ -249,14 +277,20 @@ for (var i = 0; i < getButtons.length; ++i) {
                     var dateEl = document.createElement("h3");
                     dateEl.innerHTML = moment().add(addDay, "d").format("M/DD/YYYY");
 
+                    // create img element
+                    var weatherImg = document.createElement("img");
+                    weatherImg.src = "http://openweathermap.org/img/wn/" + data2.list[i].weather[0].icon + "@2x.png";
+
+                    // create p tag element for displaying 5 day temp
                     var fiveDayTemp = document.createElement("p");
                     fiveDayTemp.innerHTML = "Temp: " + data2.list[i].main.temp + " " + "&#x2109";
 
+                    // create p tag element for displaying 5 day humidity
                     var fiveDayHumidity = document.createElement("p");
                     fiveDayHumidity.innerHTML = "Humidity: " + data2.list[i].main.humidity + "\%";
 
                     // append elements to div container
-                    dayContEl.append(dateEl, fiveDayTemp, fiveDayHumidity);
+                    dayContEl.append(dateEl, weatherImg, fiveDayTemp, fiveDayHumidity);
                     fiveDayCont.append(dayContEl);
                     addDay += 1;
                 }
