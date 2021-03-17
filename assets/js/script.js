@@ -51,7 +51,6 @@ btnEl.addEventListener("click", function(event) {
             cityNameArr.push(getCity);
             // store in local
             localStorage.setItem("cityNames", JSON.stringify(cityNameArr));
-            cityButtons();
         }
         
         // concat the api call with input from user along with api key
@@ -214,7 +213,6 @@ for (var i = 0; i < getButtons.length; ++i) {
                 return response.json();
             })
             .then(function (data) { 
-                console.log(data);
                 // set content of created html elements and create img tag for weather icon
                 var weatherImg = document.createElement("img");
                 cityName.innerHTML = (data.name + " " + "(" + getDate + ")");
@@ -249,7 +247,7 @@ for (var i = 0; i < getButtons.length; ++i) {
                         uvEl.append(uvValEl);
                 });  
             
-        // create html elements for displaying 5 day forecase
+        // create html elements for displaying 5 day forecast
         var fiveDayH2El = document.createElement("h2");
         fiveDayH2El.textContent = "5 Day Forecast";
         fiveDayH2El.className = "fiveDayH2";
